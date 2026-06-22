@@ -146,18 +146,6 @@ export default function Hero() {
               <Mail className="w-4 h-4" />
               Contact Me
             </a>
-
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert("CV download triggered! (Placeholder link - substitute with real CV file)");
-              }}
-              className="text-slate-400 hover:text-white transition-colors text-xs font-mono flex items-center gap-1.5 underline underline-offset-4 pl-2"
-            >
-              <Download className="w-3.5 h-3.5" />
-              Download CV
-            </a>
           </motion.div>
         </div>
 

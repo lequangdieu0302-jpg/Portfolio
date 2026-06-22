@@ -100,7 +100,7 @@ export default function ContactPortal() {
             </div>
             
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/di%E1%BB%87u-l%C3%AA-quang-7389101a8/"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-3 hover:text-game-cyan transition-colors"

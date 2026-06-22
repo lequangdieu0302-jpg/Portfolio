@@ -25,6 +25,7 @@ export default function PortfolioPage() {
       impact: "Improved daily operational visibility and supported faster management review.",
       difficulty: "Intermediate",
       xpAward: "Significant Impact",
+      longDescription: "Developed a centralized Power BI reporting solution for logistics operations. By extracting daily SAP transaction data and loading it into SharePoint lists, the dashboard automatically visualizes receiving velocity, pending queue aging (discrepancy reasons, physical hold, documents lag), and shift-level productivity. This replaced three separate manual spreadsheets and unified reporting across multiple warehouse sites."
     },
     {
       id: "project-2",
@@ -36,6 +37,8 @@ export default function PortfolioPage() {
       impact: "Improved follow-up visibility and supported root cause analysis for aged/slow-moving inventory.",
       difficulty: "Intermediate",
       xpAward: "Significant Impact",
+      images: ["/kpi_dashboard.png"],
+      longDescription: "Created an inventory health tracker mapping total stock holding value ($) against aging buckets (e.g. 0-90, 91-180, 180+ days). The system automatically highlights slow-moving material codes based on historical consumption velocity. Facilitated monthly inventory reviews by providing supply chain analysts with clickable filters for product categories, sites, and material owners, directly contributing to target dead-stock write-off reductions."
     },
     {
       id: "project-3",
@@ -47,6 +50,8 @@ export default function PortfolioPage() {
       impact: "Reduced manual preparation time and improved count accuracy visibility.",
       difficulty: "Advanced",
       xpAward: "High Business Impact",
+      images: ["/projects/VBA Check Shortage Material.jpg"],
+      longDescription: "Designed a custom VBA-driven reconciliation tool that automates inventory auditing. The tool uses Excel scripting (Scripting.Dictionary for O(1) matching speed) to load, parse, and match raw SAP exports including inventory status, warehouse bin mapping, and transit lists. It auto-generates a discrepancy sheet highlighting variance categories (system vs. physical count), cutting audit prep times down from 4 hours to under 5 minutes while maintaining strict data consistency."
     },
     {
       id: "project-4",
@@ -58,6 +63,8 @@ export default function PortfolioPage() {
       impact: "Improved request transparency, approval tracking, and governance.",
       difficulty: "Advanced",
       xpAward: "High Business Impact",
+      images: ["/projects/PO Portal.png", "/projects/PO Portal1.png"],
+      longDescription: "Developed a custom Canvas App in Microsoft Power Apps to replace email-based purchase requisitions (PR). The app integrates directly with a secured SharePoint backend, allowing users to submit new PR requests, upload quotations, and track approval states in real-time. It triggers a multi-level Power Automate approval workflow that notifies supervisors via Teams adaptive cards and email. Successfully deployed to over 150 team members, reducing PR cycle time by 60%."
     },
     {
       id: "project-5",
@@ -69,7 +76,78 @@ export default function PortfolioPage() {
       impact: "Reduced manual workload and improved reporting consistency.",
       difficulty: "Intermediate",
       xpAward: "Process Optimized",
+      images: ["/projects/VBA SAP Automation.png", "/projects/VBA SAP Automation PGI.png"],
+      longDescription: "Created a scheduled Python script leveraging the SAP GUI scripting API to automate standard operational reports. The script connects to the SAP session, logs in safely, navigates transaction codes (MB51, Z-tables), downloads reports in text format, and triggers a Python Pandas pipeline. Pandas parses the layout, cleans null/invalid rows, merges master records, and formats the output into executive-ready Excel files, distributing them automatically via Outlook to stakeholders."
     },
+    {
+      id: "project-6",
+      title: "Freelance Small ERP Project",
+      category: "Full-Stack / Next.js / Supabase",
+      problem: "A small local business struggled to manage client invoices, purchase records, and inventory levels in a unified application.",
+      solution: "Developed a lightweight Next.js and Supabase ERP application featuring real-time inventory tracking, supplier ordering, sales tracking, and PDF invoicing.",
+      tools: ["Next.js", "Supabase", "React", "TypeScript", "Tailwind CSS"],
+      impact: "Provided a unified, reliable dashboard for sales and inventory, eliminating manual bookkeeping errors.",
+      difficulty: "Advanced",
+      xpAward: "High Business Impact",
+      images: [
+        "/projects/Freelance small ERP Project.jpg",
+        "/projects/Freelance small ERP Project1.png",
+        "/projects/Freelance small ERP Project2.png"
+      ],
+      longDescription: "Designed and deployed a responsive web ERP system for a client. Built on Next.js for high performance and hosted on Vercel, it connects to a Supabase PostgreSQL database. Implemented role-based access control, allowing admins to track inventory adjustments, record sales, and draft purchase orders. The app utilizes client-side PDF generation to automate invoicing and features sales analytics charts for revenue, popular products, and profit margins."
+    },
+    {
+      id: "project-7",
+      title: "HR & Employee Management Dashboard",
+      category: "Power BI / HR Analytics",
+      problem: "HR personnel faced difficulties in tracking employee records, monitoring headcount changes, and identifying department-level turnover risks.",
+      solution: "Built a Power BI HR Dashboard that aggregates employee records, tracks headcount trends, highlights turnover rates, and visualizes performance evaluations.",
+      tools: ["Power BI", "Power Query", "DAX", "Excel"],
+      impact: "Streamlined HR metrics reporting and enabled proactive turnover risk analysis.",
+      difficulty: "Intermediate",
+      xpAward: "Significant Impact",
+      images: [
+        "/projects/HR Dashboard.png",
+        "/projects/HR Dashboard1.png",
+        "/projects/HR Dashboard2.png"
+      ],
+      longDescription: "Created an HR analytics dashboard displaying key people metrics: active headcount, monthly additions/exits, average tenure, and performance distribution. Formulated DAX metrics to compute rolling annual turnover rate and categorize staff by tenure brackets. Features filters for location, department, and manager, enabling HR stakeholders to perform deep dives into employee lifecycle stages and identify teams with high turnover spikes."
+    },
+    {
+      id: "project-8",
+      title: "Indirect Material Control Report",
+      category: "Power BI / Cost Control",
+      problem: "Controlling non-production material costs across multiple departments was challenging due to fragmented purchase logs.",
+      solution: "Created a Power BI report that consolidates indirect material invoices, purchase orders, and departmental budgets to track spending variances.",
+      tools: ["Power BI", "Power Query", "DAX", "Excel", "SAP Data"],
+      impact: "Improved departmental cost visibility, reducing indirect material waste by 12% in the first quarter.",
+      difficulty: "Intermediate",
+      xpAward: "Cost Optimization",
+      images: ["/projects/Indirect material control report.png"],
+      longDescription: "Designed a cost-control dashboard matching department budgets against actual indirect material expenses. By extracting SAP cost-center logs and merging them with monthly departmental budget sheets, the tool automatically calculates variances. Spenders can visualize their budget consumption velocity, receive warning indicators when approaching limits, and review list items driving the highest costs."
+    },
+    {
+      id: "project-9",
+      title: "Test Lab Report & Database Integration",
+      category: "Web App / SQL / Operations",
+      problem: "Test lab results were stored in scattered files, slowing down product quality assurance audits and search capability.",
+      solution: "Developed a web portal integrated with an operational database to index, search, and view historical product test results and certificates.",
+      tools: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
+      impact: "Improved QA audit times by 75% and secured historical records against loss.",
+      difficulty: "Advanced",
+      xpAward: "Process Optimized",
+      images: [
+        "/projects/Testlabreport.png",
+        "/projects/Testlabreport1.png",
+        "/projects/Testlabreport3.png",
+        "/projects/Testlabreport4.png",
+        "/projects/Testlabreport5.png",
+        "/projects/Testlabreport6.png",
+        "/projects/Testlabreport7.png",
+        "/projects/Testlabreport8.png"
+      ],
+      longDescription: "Built a secure, centralized portal for lab test tracking. Quality assurance teams use the portal to search test records by batch number, product type, or date. Implemented a Node.js/Express backend querying a PostgreSQL database. Features detailed product compliance status reporting, automatic validation of test parameters against limits, and a clean, responsive web UI for mobile and desktop views."
+    }
   ];
 
   return (

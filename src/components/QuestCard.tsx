@@ -13,6 +13,8 @@ export interface ProjectData {
   impact: string;
   difficulty: string;
   xpAward: string;
+  images?: string[];
+  longDescription?: string;
 }
 
 interface QuestCardProps {

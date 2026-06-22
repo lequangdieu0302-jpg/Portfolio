@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play, ShieldAlert, Award, ArrowRight, CheckCircle2, Terminal } from "lucide-react";
+import { X, Play, ShieldAlert, Award, ArrowRight, CheckCircle2, Terminal, ChevronLeft, ChevronRight, Maximize2, EyeOff } from "lucide-react";
 import { ProjectData } from "./QuestCard";
 
 interface ProjectModalProps {
@@ -11,11 +11,115 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [activeImageIndex, setActiveImageIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    setActiveImageIndex(0);
+  }, [project?.id]);
+
   if (!project) return null;
 
   // Render a visual preview mockup based on the project ID
-  const renderVisualMockup = (id: string) => {
-    switch (id) {
+  const renderVisualMockup = (project: ProjectData) => {
+    // If the project has real screenshots
+    if (project.images && project.images.length > 0) {
+      const activeImage = project.images[activeImageIndex] || project.images[0];
+      
+      return (
+        <div className="w-full bg-[#0a0c1f] rounded-xl border border-white/10 p-4 font-sans text-xs flex flex-col gap-4 shadow-inner relative overflow-hidden">
+          {/* Active Image Viewport */}
+          <div className="relative rounded-lg overflow-hidden border border-white/10 bg-slate-950/80 aspect-[16/10] flex items-center justify-center">
+            {/* Blurry screenshot image */}
+            <img
+              src={activeImage}
+              alt={`${project.title} screenshot ${activeImageIndex + 1}`}
+              className="w-full h-full object-contain filter blur-[3.5px] transition-all duration-355 select-none pointer-events-none"
+            />
+
+            {/* Dark grid pattern overlay to make the blur look techy/cyberpunk */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.15)_1px,transparent_1px)] bg-[size:4px_4px] pointer-events-none" />
+
+            {/* Glowing Cyber Security Overlay Badge */}
+            <div className="absolute top-3 left-3 bg-[#090b1e]/90 border border-rose-500/50 text-rose-400 font-mono text-[9px] font-bold px-2.5 py-1 rounded-md shadow-[0_0_10px_rgba(239,68,68,0.2)] flex items-center gap-1.5 uppercase tracking-wider backdrop-blur-md">
+              <EyeOff className="w-3 h-3 text-rose-400" />
+              Confidential Data Masked
+            </div>
+
+            {/* Project Zoom Button pointing to full size image (will open in new tab) */}
+            <a
+              href={activeImage}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute bottom-3 right-3 p-2 bg-slate-900/90 border border-white/15 hover:border-game-cyan hover:bg-game-cyan/10 text-slate-300 hover:text-game-cyan rounded-lg transition-all duration-200 cursor-pointer shadow-lg backdrop-blur-md"
+              title="Open full size screenshot in new tab"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+            </a>
+
+            {/* Left and Right arrows (only if multiple images) */}
+            {project.images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveImageIndex((prev) => 
+                      prev === 0 ? project.images!.length - 1 : prev - 1
+                    );
+                  }}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 p-1.5 bg-slate-900/85 hover:bg-game-cyan/20 border border-white/10 hover:border-game-cyan text-white rounded-full transition-all cursor-pointer shadow-lg backdrop-blur-md"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveImageIndex((prev) => 
+                      prev === project.images!.length - 1 ? 0 : prev + 1
+                    );
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 bg-slate-900/85 hover:bg-game-cyan/20 border border-white/10 hover:border-game-cyan text-white rounded-full transition-all cursor-pointer shadow-lg backdrop-blur-md"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnail Carousel (only if multiple images) */}
+          {project.images.length > 1 && (
+            <div className="flex flex-col gap-1.5 mt-1">
+              <span className="text-[9px] font-mono text-slate-400 uppercase tracking-widest pl-1">
+                Screenshots Gallery ({activeImageIndex + 1}/{project.images.length})
+              </span>
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
+                {project.images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`relative w-20 aspect-[16/10] rounded-md overflow-hidden border-2 bg-slate-950 flex-shrink-0 cursor-pointer transition-all ${
+                      idx === activeImageIndex
+                        ? "border-game-cyan shadow-[0_0_8px_rgba(0,242,254,0.4)] scale-102"
+                        : "border-white/10 hover:border-white/30"
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt="Thumbnail"
+                      className="w-full h-full object-cover filter blur-[1.5px]"
+                    />
+                    <div className={`absolute inset-0 transition-opacity ${
+                      idx === activeImageIndex ? "bg-transparent" : "bg-black/40 hover:bg-black/10"
+                    }`} />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    switch (project.id) {
       case "project-1": // Receiving Operation Dashboard
         return (
           <div className="w-full bg-[#0a0c1f] rounded-xl border border-white/10 p-4 font-sans text-xs flex flex-col gap-4 shadow-inner">
@@ -261,7 +365,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="glass-panel w-full max-w-4xl max-h-[90vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(123,47,247,0.3)] z-10 flex flex-col overflow-hidden relative"
+          className="glass-panel w-full max-w-6xl max-h-[95vh] rounded-2xl border border-white/10 shadow-[0_0_50px_rgba(123,47,247,0.3)] z-10 flex flex-col overflow-hidden relative"
         >
           {/* HUD Border Accents */}
           <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-game-cyan" />
@@ -286,10 +390,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
 
           {/* Modal Scrollable Content */}
-          <div className="p-6 overflow-y-auto flex flex-col gap-6 max-h-[calc(90vh-120px)]">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <div className="p-6 overflow-y-auto flex flex-col gap-6 max-h-[calc(95vh-120px)]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Details */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 lg:col-span-5">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-white text-glow-cyan">
                     {project.title}
@@ -331,6 +435,17 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                       {project.impact}
                     </p>
                   </div>
+
+                  {project.longDescription && (
+                    <div className="mt-4 border-t border-white/5 pt-4">
+                      <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
+                        Operational Deep-Dive
+                      </span>
+                      <p className="text-slate-300 font-light leading-relaxed mt-2 text-xs whitespace-pre-line">
+                        {project.longDescription}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-2 mt-2">
@@ -351,11 +466,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
 
               {/* Right Column: Visual Mockup Showcase */}
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-3 w-full lg:col-span-7">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-400 pl-1">
                   Operational Preview Simulation
                 </span>
-                {renderVisualMockup(project.id)}
+                {renderVisualMockup(project)}
                 <div className="text-[10px] text-slate-400 font-mono bg-white/5 border border-white/5 rounded-lg p-2.5 italic text-center">
                   🔒 Data masked in compliance with strict corporate data governance rules. No sensitive numbers or names are exposed.
                 </div>
