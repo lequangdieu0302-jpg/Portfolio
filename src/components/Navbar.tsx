@@ -33,7 +33,7 @@ export default function Navbar() {
     setIsUnlocked(unlocked);
 
     // If locked and on a private page, redirect immediately to /portfolio
-    const isPrivatePage = pathname === "/" || pathname === "/travel" || pathname?.startsWith("/coming-soon");
+    const isPrivatePage = pathname === "/" || pathname === "/travel" || pathname === "/settings" || pathname?.startsWith("/coming-soon");
     if (!unlocked && isPrivatePage) {
       router.push("/portfolio");
     }
@@ -44,7 +44,7 @@ export default function Navbar() {
     setIsUnlocked(false);
     
     // Redirect if on a private page
-    const isPrivatePage = pathname === "/" || pathname === "/travel" || pathname?.startsWith("/coming-soon");
+    const isPrivatePage = pathname === "/" || pathname === "/travel" || pathname === "/settings" || pathname?.startsWith("/coming-soon");
     if (isPrivatePage) {
       router.push("/portfolio");
     }
@@ -52,7 +52,8 @@ export default function Navbar() {
 
   const handleUnlockAttempt = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "dylan123") {
+    const systemPasscode = localStorage.getItem("portfolio_passcode") || "dylan123";
+    if (password === systemPasscode) {
       localStorage.setItem("portfolio_unlocked", "true");
       setIsUnlocked(true);
       setShowPasswordModal(false);
@@ -93,7 +94,7 @@ export default function Navbar() {
     { name: "Investment", href: "/coming-soon" },
     { name: "Travel", href: "/travel" },
     { name: "Notes", href: "/coming-soon" },
-    { name: "Settings", href: "/coming-soon" },
+    { name: "Settings", href: "/settings" },
   ];
 
   const visibleLinks = isUnlocked

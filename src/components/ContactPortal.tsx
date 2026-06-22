@@ -12,6 +12,25 @@ export default function ContactPortal() {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     setStatus("sending");
+
+    // Save message to localStorage
+    const newMessage = {
+      id: "msg-" + Date.now(),
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      date: new Date().toISOString(),
+    };
+    
+    try {
+      const existing = localStorage.getItem("portfolio_messages");
+      const messages = existing ? JSON.parse(existing) : [];
+      messages.unshift(newMessage); // Add new message to the beginning
+      localStorage.setItem("portfolio_messages", JSON.stringify(messages));
+    } catch (err) {
+      console.error("Error saving message:", err);
+    }
+
     setTimeout(() => {
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
