@@ -1,0 +1,454 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --color-game-cyan: #00f2fe;
+  --color-game-blue: #0072ff;
+  --color-game-purple: #7b2ff7;
+  --color-game-green: #00ff87;
+  --color-game-gold: #ffd32a;
+  --color-game-rose: #f43f5e;
+  --color-bg-dark: #070814;
+  --color-bg-panel: rgba(10, 11, 30, 0.65);
+  
+  --shadow-neon-cyan: 0 0 15px rgba(0, 242, 254, 0.4);
+  --shadow-neon-purple: 0 0 15px rgba(123, 47, 247, 0.4);
+  --shadow-neon-gold: 0 0 15px rgba(255, 211, 42, 0.4);
+  --shadow-neon-green: 0 0 15px rgba(0, 255, 135, 0.4);
+  
+  --animate-float-slow: float-slow 8s ease-in-out infinite;
+  --animate-float-medium: float-medium 6s ease-in-out infinite;
+  --animate-float-fast: float-fast 4s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+  }
+  @keyframes float-medium {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(-1.5deg); }
+  }
+  @keyframes float-fast {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.3)); }
+    50% { opacity: 0.6; filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.6)); }
+  }
+}
+
+/* Base custom styles */
+body {
+  background: radial-gradient(circle at 50% 0%, #150f38 0%, #08091a 50%, #03040c 100%);
+  background-attachment: fixed;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: rgba(13, 15, 38, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 10px 40px -10px rgba(0, 242, 254, 0.15),
+              0 0 15px rgba(0, 242, 254, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Glowing text effects */
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+}
+.text-glow-gold {
+  text-shadow: 0 0 10px rgba(255, 211, 42, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070814;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7b2ff7, #00f2fe);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f2fe;
+}
+
+/* Game HUD buttons */
+.btn-game-primary {
+  position: relative;
+  background: linear-gradient(135deg, #0072ff 0%, #00f2fe 100%);
+  border: 1px solid rgba(0, 242, 254, 0.5);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+}
+
+.btn-game-primary:hover {
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-game-gold {
+  position: relative;
+  background: linear-gradient(135deg, #b33939 0%, #ffd32a 100%);
+  border: 1px solid rgba(255, 211, 42, 0.5);
+  box-shadow: 0 0 15px rgba(255, 211, 42, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+}
+
+.btn-game-gold:hover {
+  box-shadow: 0 0 25px rgba(255, 211, 42, 0.5);
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-game-secondary {
+  position: relative;
+  background: rgba(13, 15, 38, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+  clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+}
+
+.btn-game-secondary:hover {
+  border-color: rgba(0, 242, 254, 0.5);
+  background: rgba(13, 15, 38, 0.9);
+  color: #00f2fe;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   Light Mode Theme Overrides
+   ========================================== */
+body.light {
+  background: radial-gradient(circle at 50% 0%, #f1f5f9 0%, #e2e8f0 60%, #cbd5e1 100%);
+  background-attachment: fixed;
+  color: #1e293b;
+
+  /* Redefine theme variables with high-contrast day mode colors */
+  --color-game-cyan: #0284c7;
+  --color-game-blue: #1d4ed8;
+  --color-game-purple: #6d28d9;
+  --color-game-green: #059669;
+  --color-game-gold: #b45309;
+  --color-game-rose: #e11d48;
+}
+
+body.light .text-white {
+  color: #0f172a !important;
+}
+
+body.light .text-slate-100 {
+  color: #0f172a !important;
+}
+
+body.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+body.light .text-slate-300 {
+  color: #1e293b !important; /* Darkened to slate-800 for readability */
+}
+
+body.light .text-slate-400 {
+  color: #334155 !important; /* Darkened to slate-700 for readability */
+}
+
+body.light .text-slate-500 {
+  color: #475569 !important; /* Darkened to slate-600 for readability */
+}
+
+body.light .glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(15, 23, 42, 0.12); /* Slightly stronger border */
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+}
+
+body.light .glass-panel-hover:hover {
+  border-color: rgba(109, 40, 217, 0.35);
+  box-shadow: 0 10px 40px -10px rgba(109, 40, 217, 0.1),
+              0 0 15px rgba(109, 40, 217, 0.05);
+}
+
+/* Light Mode Input elements */
+body.light input,
+body.light textarea {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  color: #0f172a !important;
+}
+
+body.light input:focus,
+body.light textarea:focus {
+  border-color: #7b2ff7 !important;
+  box-shadow: 0 0 15px rgba(123, 47, 247, 0.15) !important;
+}
+
+/* Light Mode Tables & Mockups */
+body.light table {
+  color: #1e293b !important;
+}
+
+body.light tr.bg-slate-900\/80 {
+  background: rgba(15, 23, 42, 0.05) !important;
+  color: #0f172a !important;
+}
+
+body.light td, 
+body.light th {
+  border-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+body.light .bg-\[\#0a0c1f\] {
+  background: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body.light .bg-\[\#03040c\] {
+  background: #f1f5f9 !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+body.light .bg-slate-900\/60 {
+  background: rgba(15, 23, 42, 0.03) !important;
+  border-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+body.light .bg-slate-950\/40 {
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+body.light .bg-slate-950 {
+  background: #f8fafc !important;
+}
+
+/* Custom backgrounds and element overrides for Light Mode */
+body.light .bg-bg-dark\/60 {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+body.light nav.bg-bg-dark\/80 {
+  background-color: rgba(241, 245, 249, 0.85) !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light .bg-game-cyan\/5 {
+  background-color: rgba(2, 132, 199, 0.04) !important;
+}
+
+body.light .bg-game-purple\/5 {
+  background-color: rgba(109, 40, 217, 0.04) !important;
+}
+
+body.light .text-rose-400 {
+  color: #e11d48 !important; /* Rose 600 */
+}
+
+body.light .bg-rose-500\/10 {
+  background-color: rgba(225, 29, 72, 0.08) !important;
+}
+
+body.light .bg-rose-500\/5 {
+  background-color: rgba(225, 29, 72, 0.04) !important;
+}
+
+body.light .border-rose-500\/30 {
+  border-color: rgba(225, 29, 72, 0.2) !important;
+}
+
+/* Adjust colors for readability on light backgrounds */
+body.light .text-game-cyan {
+  color: #0284c7 !important; /* Deep Sky Blue/Cyan */
+}
+
+body.light .text-glow-cyan {
+  text-shadow: 0 0 8px rgba(2, 132, 199, 0.15);
+}
+
+body.light .text-game-purple {
+  color: #6d28d9 !important; /* Deep Purple */
+}
+
+body.light .text-game-green {
+  color: #059669 !important; /* Emerald Green */
+}
+
+body.light .text-game-gold {
+  color: #b45309 !important; /* Amber Gold */
+}
+
+body.light .bg-game-cyan\/10 {
+  background: rgba(2, 132, 199, 0.08) !important;
+}
+
+body.light .bg-game-purple\/10 {
+  background: rgba(109, 40, 217, 0.08) !important;
+}
+
+body.light .bg-game-blue\/10 {
+  background: rgba(29, 78, 216, 0.08) !important;
+}
+
+body.light .bg-game-green\/10 {
+  background: rgba(5, 150, 105, 0.08) !important;
+}
+
+body.light .bg-game-gold\/10 {
+  background: rgba(180, 83, 9, 0.08) !important;
+}
+
+body.light .border-white\/5,
+body.light .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.12) !important; /* Stronger border for high contrast */
+}
+
+body.light .border-white\/15,
+body.light .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.22) !important; /* Stronger border for high contrast */
+}
+
+/* Color-coded border overrides for high contrast in Light Mode */
+body.light .border-game-cyan\/20,
+body.light .border-game-cyan\/30,
+body.light .border-game-cyan\/35,
+body.light .border-game-cyan\/40,
+body.light .border-game-cyan\/50 {
+  border-color: rgba(2, 132, 199, 0.28) !important;
+}
+
+body.light .border-game-purple\/20,
+body.light .border-game-purple\/30,
+body.light .border-game-purple\/40,
+body.light .border-game-purple\/50 {
+  border-color: rgba(109, 40, 217, 0.28) !important;
+}
+
+body.light .border-game-blue\/20,
+body.light .border-game-blue\/30,
+body.light .border-game-blue\/40,
+body.light .border-game-blue\/50 {
+  border-color: rgba(29, 78, 216, 0.28) !important;
+}
+
+body.light .border-game-green\/20,
+body.light .border-game-green\/30,
+body.light .border-game-green\/40,
+body.light .border-game-green\/50 {
+  border-color: rgba(5, 150, 105, 0.28) !important;
+}
+
+body.light .border-game-gold\/20,
+body.light .border-game-gold\/30,
+body.light .border-game-gold\/40,
+body.light .border-game-gold\/50 {
+  border-color: rgba(180, 83, 9, 0.28) !important;
+}
+
+body.light .border-rose-500\/20,
+body.light .border-rose-500\/30,
+body.light .border-rose-500\/40,
+body.light .border-rose-500\/50 {
+  border-color: rgba(225, 29, 72, 0.28) !important;
+}
+
+/* Connected timeline gradient overrides for Light Mode */
+body.light .bg-gradient-to-r.from-game-green.via-game-cyan.to-white\/10 {
+  background-image: linear-gradient(to right, #059669 0%, #0284c7 50%, rgba(15, 23, 42, 0.08) 100%) !important;
+}
+
+body.light .bg-gradient-to-b.from-game-green.via-game-cyan.to-white\/5 {
+  background-image: linear-gradient(to bottom, #059669 0%, #0284c7 50%, rgba(15, 23, 42, 0.08) 100%) !important;
+}
+
+body.light .bg-gradient-to-b.from-game-cyan.via-game-purple.to-transparent {
+  background-image: linear-gradient(to bottom, #0284c7 0%, #6d28d9 70%, transparent 100%) !important;
+}
+
+body.light .bg-white\/5 {
+  background: rgba(15, 23, 42, 0.03) !important;
+}
+
+body.light .bg-white\/10 {
+  background: rgba(15, 23, 42, 0.05) !important;
+}
+
+body.light .border-l-0 {
+  border-left-width: 0px !important;
+}
+
+/* Light Mode Buttons */
+body.light .btn-game-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #334155;
+}
+
+body.light .btn-game-secondary:hover {
+  border-color: #0284c7;
+  color: #0284c7;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Selected Category branch button inside SkillTree */
+body.light .bg-\[\#131533\]\/80 {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+body.light .bg-\[\#0a0c1f\]\/80 {
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* NavLinks in Light Mode */
+body.light nav a {
+  color: #334155;
+}
+
+body.light nav a:hover {
+  color: #0284c7;
+}
+
+body.light .border-game-purple\/50 {
+  border-color: rgba(109, 40, 217, 0.3) !important;
+}
+
+body.light .bg-\[\#050610\] {
+  background: #e2e8f0 !important;
+}
+
+body.light .text-slate-600 {
+  color: #475569 !important;
+}
+
+/* Skill tree selector button overrides for Light Mode */
+body.light .skill-branch-btn {
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light .skill-branch-btn.bg-\[\#131533\]\/80 {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
