@@ -30,8 +30,6 @@ export default function Footer() {
           <span className="flex items-center gap-1">
             <Sparkles className="w-3.5 h-3.5 text-game-gold" /> Status: Online
           </span>
-          <span className="hidden sm:inline">|</span>
-          <span className="hidden sm:inline text-game-green font-bold">● Vercel Deploy Ready</span>
         </div>
 
         {/* Copyright */}
