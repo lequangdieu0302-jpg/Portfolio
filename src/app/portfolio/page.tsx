@@ -16,18 +16,6 @@ export default function PortfolioPage() {
 
   const projects: ProjectData[] = [
     {
-      id: "project-1",
-      title: "Receiving Operation Dashboard",
-      category: "Power BI / Operations",
-      problem: "Daily receiving performance was tracked manually and lacked clear visibility by site, date, and pending status.",
-      solution: "Built a Power BI dashboard to monitor GRN, GRS, pallets, pending aging, and daily/weekly receiving performance.",
-      tools: ["Power BI", "Power Query", "DAX", "Excel", "SharePoint"],
-      impact: "Improved daily operational visibility and supported faster management review.",
-      difficulty: "Intermediate",
-      xpAward: "Significant Impact",
-      longDescription: "Developed a centralized Power BI reporting solution for logistics operations. By extracting daily SAP transaction data and loading it into SharePoint lists, the dashboard automatically visualizes receiving velocity, pending queue aging (discrepancy reasons, physical hold, documents lag), and shift-level productivity. This replaced three separate manual spreadsheets and unified reporting across multiple warehouse sites."
-    },
-    {
       id: "project-2",
       title: "Inventory On-Hand & Slow-Moving Dashboard",
       category: "Power BI / Inventory Control",

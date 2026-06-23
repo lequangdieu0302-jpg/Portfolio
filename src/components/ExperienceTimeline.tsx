@@ -94,7 +94,7 @@ export default function ExperienceTimeline() {
       case "schenker":
         return (
           <div className="w-16 h-10 rounded-lg flex items-center justify-center border border-game-purple/20 bg-white p-1 flex-shrink-0 shadow-md overflow-hidden">
-            <img src="/logo_schenker.png" alt="DB Schenker" className="w-full h-auto max-h-full object-contain scale-[1.25]" />
+            <img src="/logo_schenker.png" alt="DB Schenker" className="w-full h-auto max-h-full object-contain scale-[0.95]" />
           </div>
         );
       default:
