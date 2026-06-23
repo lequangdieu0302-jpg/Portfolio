@@ -47,9 +47,16 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             {/* Dark grid pattern overlay */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[size:4px_4px] pointer-events-none" />
 
+            {/* Black Censor Bar to hide brand logos */}
+            {!isERP && (
+              <div className="absolute top-0 left-0 right-0 h-[12%] bg-black/95 border-b border-rose-500/30 flex items-center justify-center font-mono text-[9px] text-rose-400 tracking-wider pointer-events-none z-10 select-none">
+                <span className="animate-pulse">⚠️ CONFIDENTIAL BRAND ASSETS MASKED</span>
+              </div>
+            )}
+
             {/* Glowing Cyber Security Overlay Badge */}
             {!isERP && (
-              <div className="absolute top-3 left-3 bg-[#090b1e]/90 border border-rose-500/50 text-rose-400 font-mono text-[9px] font-bold px-2.5 py-1 rounded-md shadow-[0_0_10px_rgba(239,68,68,0.2)] flex items-center gap-1.5 uppercase tracking-wider backdrop-blur-md pointer-events-none">
+              <div className="absolute bottom-3 left-3 bg-[#090b1e]/90 border border-rose-500/50 text-rose-400 font-mono text-[9px] font-bold px-2.5 py-1 rounded-md shadow-[0_0_10px_rgba(239,68,68,0.2)] flex items-center gap-1.5 uppercase tracking-wider backdrop-blur-md pointer-events-none z-10">
                 <EyeOff className="w-3 h-3 text-rose-400" />
                 Confidential Data Masked
               </div>
@@ -495,14 +502,24 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           className="fixed inset-0 z-[150] bg-black/95 flex flex-col items-center justify-center p-4 cursor-zoom-out animate-fade-in"
         >
           {/* Main Lightbox Image */}
-          <div className="relative max-w-7xl max-h-[85vh] w-full h-full flex items-center justify-center">
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-7xl max-h-[80vh] aspect-[16/10] w-full h-auto flex items-center justify-center border border-white/10 bg-slate-950 rounded-lg overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+          >
             <img
               src={project.images[activeImageIndex] || project.images[0]}
               alt="Fullscreen screenshot"
-              className={`max-w-full max-h-full object-contain ${
+              className={`w-full h-full object-contain ${
                 project.id === "project-6" ? "filter-none" : "filter blur-[1.5px]"
-              } rounded-lg`}
+              }`}
             />
+
+            {/* Black Censor Bar to hide brand logos */}
+            {project.id !== "project-6" && (
+              <div className="absolute top-0 left-0 right-0 h-[12%] bg-black/95 border-b border-rose-500/30 flex items-center justify-center font-mono text-[10px] text-rose-400 tracking-widest pointer-events-none z-10 select-none">
+                <span className="animate-pulse">⚠️ CONFIDENTIAL BRAND LOGO & DATA MASKED</span>
+              </div>
+            )}
 
             {/* Left and Right arrows inside lightbox */}
             {project.images.length > 1 && (
